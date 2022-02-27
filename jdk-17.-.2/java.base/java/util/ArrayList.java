@@ -856,6 +856,8 @@ public class ArrayList<E> extends AbstractList<E>
             System.arraycopy(es, r, es, w, end - r);
             w += end - r;
             throw ex;
+
+            // finally 语句主要是防止 c.contains 有异常抛出
         } finally {
             modCount += end - w;
             shiftTailOverGap(es, w, end);
