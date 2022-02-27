@@ -438,9 +438,13 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     public E set(int index, E element) {
+        // 对 index 范围进行校验
         Objects.checkIndex(index, size);
+        // 返回 elementData 指定位置的元素
         E oldValue = elementData(index);
+        // 将 elementData 数组 index 位置设置为新元素 element
         elementData[index] = element;
+        // 返回旧值
         return oldValue;
     }
 
@@ -501,6 +505,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     public E remove(int index) {
+        // 对 index 范围进行校验
         Objects.checkIndex(index, size);
         final Object[] es = elementData;
 
@@ -654,6 +659,8 @@ public class ArrayList<E> extends AbstractList<E>
     }
 
     /**
+     *批量将另一个集合中的元素加入ArrayList的末尾
+     *
      * Appends all of the elements in the specified collection to the end of
      * this list, in the order that they are returned by the
      * specified collection's Iterator.  The behavior of this operation is
@@ -667,15 +674,21 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException if the specified collection is null
      */
     public boolean addAll(Collection<? extends E> c) {
+        // 将集合 c 中的元素放入数组 a 中
         Object[] a = c.toArray();
         modCount++;
+        // 数组 a 的长度
         int numNew = a.length;
+
+        // 如果集合 c 非空，就返回 true，否则返回 false
         if (numNew == 0)
             return false;
         Object[] elementData;
         final int s;
+        // 如果满足条件就扩容
         if (numNew > (elementData = this.elementData).length - (s = size))
             elementData = grow(s + numNew);
+        // 将数组 a 中的元素复制到 elementData 末尾
         System.arraycopy(a, 0, elementData, s, numNew);
         size = s + numNew;
         return true;
@@ -709,12 +722,16 @@ public class ArrayList<E> extends AbstractList<E>
         if (numNew > (elementData = this.elementData).length - (s = size))
             elementData = grow(s + numNew);
 
+        // 需要移动的元素个数
         int numMoved = s - index;
         if (numMoved > 0)
+            // elementData 数组移动，给出位置给 a 数组
             System.arraycopy(elementData, index,
                              elementData, index + numNew,
                              numMoved);
+        // 将数组 a 中的元素复制到 elementDate 数组 index 位置后
         System.arraycopy(a, 0, elementData, index, numNew);
+        // 修改 ArrayList 的大小等于 size + numNew
         size = s + numNew;
         return true;
     }
@@ -813,9 +830,13 @@ public class ArrayList<E> extends AbstractList<E>
 
     boolean batchRemove(Collection<?> c, boolean complement,
                         final int from, final int end) {
+        // 调用的Objects.requireNonNull()方法用于校验对象非空
         Objects.requireNonNull(c);
+        // 获取 elementData 数组的引用
         final Object[] es = elementData;
+        // r 用于控制循环
         int r;
+        // 优化内存 ?
         // Optimize for initial run of survivors
         for (r = from;; r++) {
             if (r == end)
@@ -823,6 +844,7 @@ public class ArrayList<E> extends AbstractList<E>
             if (c.contains(es[r]) != complement)
                 break;
         }
+        // w 用来记录交集中的元素个数
         int w = r++;
         try {
             for (Object e; r < end; r++)
