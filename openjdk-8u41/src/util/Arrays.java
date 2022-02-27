@@ -3182,6 +3182,9 @@ public class Arrays {
     }
 
     /**
+     * 调用 System.arraycopy 方法拷贝数组，此方法是一个 native 方法，对内存直接进行拷贝，
+     * 是一种可靠且高效的数组拷贝方式
+     *
      * Copies the specified array, truncating or padding with nulls (if necessary)
      * so the copy has the specified length.  For all indices that are
      * valid in both the original array and the copy, the two arrays will
