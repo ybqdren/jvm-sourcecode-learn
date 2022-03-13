@@ -665,19 +665,39 @@ public abstract class AbstractQueuedSynchronizer
      *
      * @param mode Node.EXCLUSIVE for exclusive, Node.SHARED for shared
      * @return the new node
+     *
+     * 将未获取到同步资源使用权的线程放入同步队列中。
+     *
+     * 将未获取到共享线程的线程添加到队列的尾结点
+     * 方法参数 Node.EXCLUSIVE 表示当前是独占模式
      */
     private Node addWaiter(Node mode) {
+        // 用当前线程创建一个 Node 结点
         Node node = new Node(Thread.currentThread(), mode);
         // Try the fast path of enq; backup to full enq on failure
+        // 以下代码的执行逻辑是：
+        // 首先获取原队列的尾结点
+        // 将当前结点加入队列尾部，如果入队成功，就返回新结点 node
+        // 如果入队失败，就采用自旋加入结点直至入队成功返回该结点
         Node pred = tail;
+        // 如果当前队列非空
         if (pred != null) {
+            // 将 node 节点的 prev 引用指向队尾结点
             node.prev = pred;
+            // 如果通过 CAS 入队尾成功
+            // 即 node 结点成为新的队尾结点
             if (compareAndSetTail(pred, node)) {
+                // 原队尾 pred 结点的 next 引用指向 node
                 pred.next = node;
+                // 返回 node
                 return node;
             }
         }
+        // 如果队尾为空
+        // 或者通过 CAS 进入队尾失败，即当前环境存在多个线程竞争入队
+        // 通过 end() 方法自旋
         enq(node);
+        // 返回 node 结点
         return node;
     }
 
@@ -1137,6 +1157,16 @@ public abstract class AbstractQueuedSynchronizer
      *                                       thrown in a consistent fashion for synchronization to work
      *                                       correctly.
      * @throws UnsupportedOperationException if exclusive mode is not supported
+     *
+     * 尝试获取锁，方法直接抛出 UnsupportedOperationException 异常
+     * tryAcquire() 方法在 AbstractQueuedSynchronizer 中没有具体的实现，
+     * 因此 tryAcquire() 的具体逻辑需要由 AbstractQueuedSynchronizer 的子类实现。
+     *
+     * 通常情况下，模板方法设计模式的使用方式是将父类中必须由子类重写的方法定义为抽象方法，但在 AbstractQueuedSynchronizer 中，
+     * tryAcquire() 方法并没有被定义未抽象方法，原因在于，在 AbstractQueuedSynchronizer 的独占模式的子类中需要重写
+     * tryAcquireShared() 方法和 tryReleaseShared() 方法。如果将这些方法都定义成抽象方法，那么每个子类要实现4个抽象方法。
+     *
+     * 所以，此处 AbstractQueuedSynchronizer 类对 tryAcquire() 方法的设计可以尽量减少开发者不必要的工作量。
      */
     protected boolean tryAcquire(int arg) {
         throw new UnsupportedOperationException();
@@ -1259,10 +1289,15 @@ public abstract class AbstractQueuedSynchronizer
      * @param arg the acquire argument.  This value is conveyed to
      *            {@link #tryAcquire} but is otherwise uninterpreted and
      *            can represent anything you like.
+     *
      */
     public final void acquire(int arg) {
+        // 1. 调用 tryAcqyire() 方法尝试获取同步资源，如果 tryAcquire() 方法返回 true，那么 acquire() 方法执行结束，tryAcquire() 方法一般在 AQS 子类中实现
+        // 2. 如果 tryAcquire() 方法返回 false，就调用 addWaiter()方法将当前调用 acquire() 方法的线程入队
+        // 3. 调用 acquireQueued() 方法在等待队列中获取同步资源
         if (!tryAcquire(arg) &&
                 acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+            // 线程中断
             selfInterrupt();
     }
 
