@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1996, 1999, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1996, 2011, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -23,38 +23,28 @@
  * questions.
  */
 
-package java.util.zip;
+package java.lang;
 
 /**
- * An interface representing a data checksum.
+ * The {@code Void} class is an uninstantiable placeholder class to hold a
+ * reference to the {@code Class} object representing the Java keyword
+ * void.
  *
- * @author      David Connelly
+ * @author  unascribed
+ * @since   JDK1.1
  */
-public
-interface Checksum {
-    /**
-     * Updates the current checksum with the specified byte.
-     *
-     * @param b the byte to update the checksum with
-     */
-    public void update(int b);
+public final
+class Void {
 
     /**
-     * Updates the current checksum with the specified array of bytes.
-     * @param b the byte array to update the checksum with
-     * @param off the start offset of the data
-     * @param len the number of bytes to use for the update
+     * The {@code Class} object representing the pseudo-type corresponding to
+     * the keyword {@code void}.
      */
-    public void update(byte[] b, int off, int len);
+    @SuppressWarnings("unchecked")
+    public static final Class<Void> TYPE = (Class<Void>) Class.getPrimitiveClass("void");
 
-    /**
-     * Returns the current checksum value.
-     * @return the current checksum value
+    /*
+     * The Void class cannot be instantiated.
      */
-    public long getValue();
-
-    /**
-     * Resets the checksum to its initial value.
-     */
-    public void reset();
+    private Void() {}
 }
