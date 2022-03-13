@@ -142,21 +142,28 @@ public abstract class AbstractQueuedLongSynchronizer
     }
 
     /**
+     * 队列的头结点。头结点不代表任何线程， 知识一个伪结点（Dummy Node)
      * Head of the wait queue, lazily initialized.
      */
     private transient volatile Node head;
 
     /**
+     * 队列的尾结点
+     *
      * Tail of the wait queue. After initialization, modified only via casTail.
      */
     private transient volatile Node tail;
 
     /**
+     * 同步状态
+     *
      * The synchronization state.
      */
     private volatile long state;
 
     /**
+     * 返回 state 状态
+     *
      * Returns the current value of synchronization state.
      * This operation has memory semantics of a {@code volatile} read.
      * @return current state value
@@ -166,6 +173,8 @@ public abstract class AbstractQueuedLongSynchronizer
     }
 
     /**
+     * 设置 state 状态
+     *
      * Sets the value of synchronization state.
      * This operation has memory semantics of a {@code volatile} write.
      * @param newState the new state value

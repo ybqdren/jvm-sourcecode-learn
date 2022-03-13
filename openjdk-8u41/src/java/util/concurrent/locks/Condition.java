@@ -175,6 +175,8 @@ import java.util.Date;
  *
  * @since 1.5
  * @author Doug Lea
+ *
+ * Condition 条件接口代码解析
  */
 public interface Condition {
 
@@ -227,6 +229,8 @@ public interface Condition {
      *
      * @throws InterruptedException if the current thread is interrupted
      *         (and interruption of thread suspension is supported)
+     *
+     * 使线程进入等待状态
      */
     void await() throws InterruptedException;
 

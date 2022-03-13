@@ -36,6 +36,8 @@
 package java.util.concurrent.locks;
 
 /**
+ * AbstractQueuedSynchronizer为创建可能需要所有权概念的锁和相关同步器提供了基础。
+ * <p>
  * A synchronizer that may be exclusively owned by a thread.  This
  * class provides a basis for creating locks and related synchronizers
  * that may entail a notion of ownership.  The
@@ -44,30 +46,38 @@ package java.util.concurrent.locks;
  * appropriately maintained values to help control and monitor access
  * and provide diagnostics.
  *
- * @since 1.6
  * @author Doug Lea
+ * @since 1.6
  */
 public abstract class AbstractOwnableSynchronizer
-    implements java.io.Serializable {
+        implements java.io.Serializable {
 
-    /** Use serial ID even though all fields transient. */
+    /**
+     * Use serial ID even though all fields transient.
+     */
     private static final long serialVersionUID = 3737899427754241961L;
 
     /**
+     * 构造器
      * Empty constructor for use by subclasses.
      */
-    protected AbstractOwnableSynchronizer() { }
+    protected AbstractOwnableSynchronizer() {
+    }
 
     /**
+     * 在独占模式下，同步器的当前所有者（一个线程对象）
      * The current owner of exclusive mode synchronization.
      */
     private transient Thread exclusiveOwnerThread;
 
     /**
+     * 设置独占模式同步器的当前所有者
+     * <p>
      * Sets the thread that currently owns exclusive access.
      * A {@code null} argument indicates that no thread owns access.
      * This method does not otherwise impose any synchronization or
      * {@code volatile} field accesses.
+     *
      * @param thread the owner thread
      */
     protected final void setExclusiveOwnerThread(Thread thread) {
@@ -75,9 +85,11 @@ public abstract class AbstractOwnableSynchronizer
     }
 
     /**
+     * 返回独占模式同步器的当前所有者
      * Returns the thread last set by {@code setExclusiveOwnerThread},
      * or {@code null} if never set.  This method does not otherwise
      * impose any synchronization or {@code volatile} field accesses.
+     *
      * @return the owner thread
      */
     protected final Thread getExclusiveOwnerThread() {

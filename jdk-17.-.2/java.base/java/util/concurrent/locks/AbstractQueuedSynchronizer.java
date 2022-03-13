@@ -450,6 +450,14 @@ public abstract class AbstractQueuedSynchronizer
     static final int CANCELLED = 0x80000000; // must be negative
     static final int COND      = 2;          // in a condition wait
 
+    /**
+     * AbstractQueuedSynchronizer 维护的队列的结点类型
+     * 通过 Node 可以实现两种队列，分别是：
+     * 1. 通过 prev 和 next 属性实现 CLH 队列（同步队列，双向队列）
+     * 2. nextWaiter 属性实现的在 Condition 条件上的等待线程队列（条件队列，单向队列）
+     *
+     * todo 源码和 jdk8 有差别，待读
+     */
     /** CLH Nodes */
     abstract static class Node {
         volatile Node prev;       // initially attached via casTail
