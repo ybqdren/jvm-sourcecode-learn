@@ -44,6 +44,8 @@ package java.lang.reflect;
  *
  * @jls 4.5 Parameterized Types
  * @since 1.5
+ *
+ * 代表参数化的类型。例如，“Collection ＜String＞”就是参数化的类型。
  */
 public interface ParameterizedType extends Type {
     /**

@@ -31,6 +31,8 @@ package java.lang.reflect;
  *
  * @jls 10.1 Array Types
  * @since 1.5
+ *
+ * 代表包含ParameterizedType或者 TypeVariable元素的列表。
  */
 public interface GenericArrayType extends Type {
     /**

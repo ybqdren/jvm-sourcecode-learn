@@ -42,12 +42,13 @@ package java.lang.reflect;
  */
 public interface Type {
     /**
+     * 获取类型的名称
+     * <p>
      * Returns a string describing this type, including information
      * about any type parameters.
      *
-     * @implSpec The default implementation calls {@code toString}.
-     *
      * @return a string describing this type
+     * @implSpec The default implementation calls {@code toString}.
      * @since 1.8
      */
     default String getTypeName() {

@@ -191,6 +191,8 @@ import sun.reflect.misc.ReflectUtil;
  * @see     ClassLoader#defineClass(byte[], int, int)
  * @since   1.0
  * @jls 15.8.2 Class Literals
+ *
+ * 代表运行的 Java程序中的类和接口，枚举类型（属于类）、注解（属于接口）也都是 Class类的子类
  */
 public final class Class<T> implements java.io.Serializable,
                               GenericDeclaration,

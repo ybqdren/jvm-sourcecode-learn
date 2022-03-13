@@ -31,6 +31,8 @@ package java.lang.reflect;
  *
  * @jls 4.5.1 Type Arguments of Parameterized Types
  * @since 1.5
+ *
+ * 代表通配符表达式。例如，“？”“？extends Number”“？superInteger”都是通配符表达式
  */
 public interface WildcardType extends Type {
     /**

@@ -48,6 +48,8 @@ package java.lang.reflect;
  *
  * @jls 4.4 Type Variables
  * @since 1.5
+ *
+ * 是类型变量的父接口。例如，“Map＜K，V＞”中的“K”“V”就是类型变量
  */
 public interface TypeVariable<D extends GenericDeclaration> extends Type, AnnotatedElement {
     /**
