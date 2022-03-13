@@ -26,6 +26,9 @@
 package java.lang.reflect;
 
 /**
+ *
+ * 必检异常
+ *
  * InvocationTargetException is a checked exception that wraps
  * an exception thrown by an invoked method or constructor.
  *
@@ -41,30 +44,33 @@ public class InvocationTargetException extends ReflectiveOperationException {
     private static final long serialVersionUID = 4085088731926701167L;
 
     /**
+     * 用来保存被包装的异常
+     *
      * This field holds the target if the
      * InvocationTargetException(Throwable target) constructor was
      * used to instantiate the object
      *
      * @serial
-     *
      */
     private Throwable target;
 
     /**
+     * 构造方法
      * Constructs an {@code InvocationTargetException} with
      * {@code null} as the target exception.
      */
     protected InvocationTargetException() {
-        super((Throwable)null);  // Disallow initCause
+        super((Throwable) null);  // Disallow initCause
     }
 
     /**
+     * 构造方法
      * Constructs a InvocationTargetException with a target exception.
      *
-     * @param target the target exception
+     * @param target the target exception 被包装的异常
      */
     public InvocationTargetException(Throwable target) {
-        super((Throwable)null);  // Disallow initCause
+        super((Throwable) null);  // Disallow initCause
         this.target = target;
     }
 
@@ -83,12 +89,10 @@ public class InvocationTargetException extends ReflectiveOperationException {
     /**
      * Get the thrown target exception.
      *
-     * @apiNote
-     * This method predates the general-purpose exception chaining facility.
+     * @return the thrown target exception (cause of this exception).
+     * @apiNote This method predates the general-purpose exception chaining facility.
      * The {@link Throwable#getCause()} method is now the preferred means of
      * obtaining this information.
-     *
-     * @return the thrown target exception (cause of this exception).
      */
     public Throwable getTargetException() {
         return target;
@@ -98,8 +102,8 @@ public class InvocationTargetException extends ReflectiveOperationException {
      * Returns the cause of this exception (the thrown target exception,
      * which may be {@code null}).
      *
-     * @return  the cause of this exception.
-     * @since   1.4
+     * @return the cause of this exception.
+     * @since 1.4
      */
     @Override
     public Throwable getCause() {
