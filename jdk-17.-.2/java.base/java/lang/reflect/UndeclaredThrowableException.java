@@ -69,13 +69,16 @@ public class UndeclaredThrowableException extends RuntimeException {
         super(null, undeclaredThrowable);  // Disallow initCause
     }
 
+
     /**
+     * 构造方法
+     *
      * Constructs an {@code UndeclaredThrowableException} with the
      * specified {@code Throwable} and a detail message.
      *
      * @param   undeclaredThrowable the undeclared checked exception
-     *          that was thrown
-     * @param   s the detail message
+     *          that was thrown 被包装的必检异常
+     * @param   s the detail message 异常的详细信息
      */
     public UndeclaredThrowableException(Throwable undeclaredThrowable,
                                         String s)
