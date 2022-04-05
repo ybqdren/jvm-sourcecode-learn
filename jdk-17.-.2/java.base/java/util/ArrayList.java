@@ -637,7 +637,7 @@ public class ArrayList<E> extends AbstractList<E>
 
     /**
      * modeCount: 在使用 for(;;;)语法糖和 ArrayList 中的 fastRemove 方法时都会被操作，且是同一个
-     * 所以如果两者两者一起使用，可能会出现 {@link ConcurrentModificationException} 异常
+     * 所以如果两者两者一起使用，会因为 modCount 以及其引用值不一致，而抛出 {@link ConcurrentModificationException} 异常
      *
      * Private remove method that skips bounds checking and does not
      * return the value removed.
