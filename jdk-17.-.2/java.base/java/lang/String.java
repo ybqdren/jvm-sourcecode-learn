@@ -165,6 +165,11 @@ public final class String
      * @implNote This field is trusted by the VM, and is a subject to
      * constant folding if String instance is constant. Overwriting this
      * field after construction will cause problems.
+     *
+     * 出现自 jdk9，coder 的作用是：
+     * 在计算字符串长度或者使用 indexOf（）函数时，我们需要根据这个字段，判断如何计算字符串长度。
+     * coder 属性默认有 0 和 1 两个值，0 代表 Latin-1（单字节编码），1 代表 UTF-16。
+     * 如果 String 判断字符串只包含了 Latin-1，则 coder 属性值为 0，反之则为 1。
      */
     private final byte coder;
 
