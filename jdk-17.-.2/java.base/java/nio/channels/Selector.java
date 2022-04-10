@@ -34,6 +34,8 @@ import java.util.function.Consumer;
 
 
 /**
+ * select/poll/epoll 的外包类
+ *
  * A multiplexor of {@link SelectableChannel} objects.
  *
  * <p> A selector may be created by invoking the {@link #open open} method of
