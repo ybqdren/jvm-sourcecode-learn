@@ -149,20 +149,24 @@ abstract class Striped64 extends Number {
         }
     }
 
+    // CPU 的数量
     /** Number of CPUS, to place bound on table size */
     static final int NCPU = Runtime.getRuntime().availableProcessors();
 
+    // Cell 对象的数组，长度一般是 2 的指数
     /**
      * Table of cells. When non-null, size is a power of 2.
      */
     transient volatile Cell[] cells;
 
+    // 基础 value 之，当并发较低时，只累加该值
     /**
      * Base value, used mainly when there is no contention, but also as
      * a fallback during table initialization races. Updated via CAS.
      */
     transient volatile long base;
 
+    // 创建或扩容 Cells 数组时使用的自旋锁变量
     /**
      * Spinlock (locked via CAS) used when resizing and/or creating Cells.
      */

@@ -80,12 +80,16 @@ public class LongAdder extends Striped64 implements Serializable {
     }
 
     /**
+     * 使用 CAS 操作将之进行累加，如果成功了直接返回，失败则继续执行
+     *
      * Adds the given value.
      *
      * @param x the value to add
      */
     public void add(long x) {
         Cell[] cs; long b, v; int m; Cell c;
+
+        // 当 cells 数组为 null 时，会进行第一次 cas 操作尝试
         if ((cs = cells) != null || !casBase(b = base, b + x)) {
             int index = getProbe();
             boolean uncontended = true;
