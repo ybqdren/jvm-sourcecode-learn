@@ -610,6 +610,8 @@ public abstract class Reference<T> {
      * @param ref the reference. If {@code null}, this method has no effect.
      * @since 9
      * @jls 12.6 Finalization of Class Instances
+     *
+     * JEP 193: Variable Handles，将 Java 平台底层的一些能力暴露出来
      */
     @ForceInline
     public static void reachabilityFence(Object ref) {
